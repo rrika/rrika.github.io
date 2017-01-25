@@ -1,0 +1,15 @@
+body { font-size: 0.95em; max-width: 35em; margin-top: 2em; margin-left: 2em; margin-right: 2em; margin-bottom: 10em; }
+h1, h2, h3 { font-weight: bold; display: block; margin-bottom: 0.4em; }
+p { margin-top: 0.4em; margin-bottom: 1.2em; }
+h1 { font-size: 2em; }
+h2 { font-size: 1em; }
+h3 { font-size: 0.8em; }
+pre { tab-size: 4; }
+td, th { padding-left: 1em; padding-right: 1em; border: 1px solid #bbb;}
+ul { padding-left: 1.5em; }
+#TOC { background-color: #eee; padding: 1em; padding-right: 2.5em; display: inline-block; }
+#TOC a { color: #000; text-decoration: none; }
+#TOC a:hover { text-decoration: underline; }
+#TOC a:visited { color: #636; }
+table { border-collapse: collapse; }
+
