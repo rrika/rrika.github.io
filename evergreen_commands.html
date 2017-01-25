@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>evergreen notes (commands)</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header>
+<h1 class="title">evergreen notes (commands)</h1>
+</header>
+<ul>
+<li>The <strong>ME</strong> column indicates whether the ME will act on this command.</li>
+<li>The <strong>PFP</strong> column indicates whether the PFP will treat this kind of command specially or just forward it to the ME verbatim.</li>
+<li>The <strong>Linux</strong> column indicates whether the kernel module will allow userspace send these commands to the GPU. <del>Linux</del> means that the command name shows up in the header file <code>evergreend.h</code> but is still not allowed by <code>evergreen_packet3_check</code>.</li>
+<li>The <strong>Mesa</strong> column shows whether the command is mentioned in its header files.</li>
+<li>The <strong>prog. guide column</strong> lists commands that are documented in the &quot;Evergreen Programming Guide&quot;</li>
+</ul>
+<p><small>(The PFP and ME are two components in AMD gpus interpreting commands.)</small></p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">PM4 command</th>
+<th style="text-align: left;">Hex</th>
+<th>ME</th>
+<th>PFP</th>
+<th style="text-align: left;">Linux</th>
+<th>Mesa</th>
+<th>Prog. Guide</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>01</code></td>
+<td>ME</td>
+<td></td>
+<td style="text-align: left;"></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>02</code></td>
+<td></td>
+<td>PFP</td>
+<td style="text-align: left;"></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>03</code></td>
+<td></td>
+<td>PFP</td>
+<td style="text-align: left;"></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>04</code></td>
+<td></td>
+<td>PFP</td>
+<td style="text-align: left;"></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>05</code></td>
+<td></td>
+<td>PFP</td>
+<td style="text-align: left;"></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>06</code></td>
+<td></td>
+<td>PFP</td>
+<td style="text-align: left;"></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>07</code></td>
+<td></td>
+<td>PFP</td>
+<td style="text-align: left;"></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>08</code></td>
+<td></td>
+<td>PFP</td>
+<td style="text-align: left;"></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>09</code></td>
+<td></td>
+<td>PFP</td>
+<td style="text-align: left;"></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>0A</code></td>
+<td></td>
+<td>PFP</td>
+<td style="text-align: left;"></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>0B</code></td>
+<td></td>
+<td>PFP</td>
+<td style="text-align: left;"></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>0C</code></td>
+<td></td>
+<td>PFP</td>
+<td style="text-align: left;"></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>0D</code></td>
+<td></td>
+<td>PFP</td>
+<td style="text-align: left;"></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>0E</code></td>
+<td></td>
+<td>PFP</td>
+<td style="text-align: left;"></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>0F</code></td>
+<td></td>
+<td>PFP</td>
+<td style="text-align: left;"></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">nop</td>
+<td style="text-align: left;"><code>10</code></td>
+<td>ME</td>
+<td>PFP</td>
+<td style="text-align: left;">Linux</td>
+<td>Mesa</td>
+<td>Guide</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">set_base</td>
+<td style="text-align: left;"><code>11</code></td>
+<td></td>
+<td>PFP</td>
+<td style="text-align: left;">Linux</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">clear_state</td>
+<td style="text-align: left;"><code>12</code></td>
+<td>ME</td>
+<td>PFP</td>
+<td style="text-align: left;">Linux</td>
+<td></td>
+<td>Guide</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">index_buffer_size</td>
+<td style="text-align: left;"><code>13</code></td>
+<td></td>
+<td>PFP</td>
+<td style="text-align: left;">Linux</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">dispatch_direct</td>
+<td style="text-align: left;"><code>15</code></td>
+<td>ME</td>
+<td></td>
+<td style="text-align: left;">Linux</td>
+<td>Mesa</td>
+<td>Guide</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">dispatch_indirect</td>
+<td style="text-align: left;"><code>16</code></td>
+<td>ME</td>
+<td>PFP</td>
+<td style="text-align: left;">Linux</td>
+<td>Mesa</td>
+<td>Guide</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">indirect_buffer_end</td>
+<td style="text-align: left;"><code>17</code></td>
+<td>ME</td>
+<td>PFP</td>
+<td style="text-align: left;"><del>Linux</del></td>
+<td>Mesa</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">mode_control</td>
+<td style="text-align: left;"><code>18</code></td>
+<td></td>
+<td>PFP</td>
+<td style="text-align: left;"><del>Linux</del></td>
+<td></td>
+<td>Guide</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>1A</code></td>
+<td></td>
+<td>PFP</td>
+<td style="text-align: left;"></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>1F</code></td>
+<td></td>
+<td>PFP</td>
+<td style="text-align: left;"></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">set_predication</td>
+<td style="text-align: left;"><code>20</code></td>
+<td></td>
+<td>PFP</td>
+<td style="text-align: left;">Linux</td>
+<td>Mesa</td>
+<td>Guide</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">reg_rmw</td>
+<td style="text-align: left;"><code>21</code></td>
+<td>ME</td>
+<td></td>
+<td style="text-align: left;"><del>Linux</del></td>
+<td>Mesa</td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">cond_exec</td>
+<td style="text-align: left;"><code>22</code></td>
+<td></td>
+<td>PFP</td>
+<td style="text-align: left;"><del>Linux</del></td>
+<td>Mesa</td>
+<td>Guide</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">pred_exec</td>
+<td style="text-align: left;"><code>23</code></td>
+<td></td>
+<td>PFP</td>
+<td style="text-align: left;"><del>Linux</del></td>
+<td>Mesa</td>
+<td>Guide</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">draw_indirect</td>
+<td style="text-align: left;"><code>24</code></td>
+<td>ME</td>
+<td>PFP</td>
+<td style="text-align: left;">Linux</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">draw_index_indirect</td>
+<td style="text-align: left;"><code>25</code></td>
+<td>ME</td>
+<td>PFP</td>
+<td style="text-align: left;">Linux</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">index_base</td>
+<td style="text-align: left;"><code>26</code></td>
+<td></td>
+<td>PFP</td>
+<td style="text-align: left;">Linux</td>
+<td></td>
+<td>Guide</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">draw_index_2</td>
+<td style="text-align: left;"><code>27</code></td>
+<td>ME</td>
+<td>PFP</td>
+<td style="text-align: left;">Linux</td>
+<td>Mesa</td>
+<td>Guide</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">context_control</td>
+<td style="text-align: left;"><code>28</code></td>
+<td>ME</td>
+<td>PFP</td>
+<td style="text-align: left;">Linux</td>
+<td>Mesa</td>
+<td>Guide</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">draw_index_offset</td>
+<td style="text-align: left;"><code>29</code></td>
+<td>ME</td>
+<td>PFP</td>
+<td style="text-align: left;">Linux</td>
+<td>Mesa</td>
+<td>Guide</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">index_type</td>
+<td style="text-align: left;"><code>2A</code></td>
+<td>ME</td>
+<td>PFP</td>
+<td style="text-align: left;">Linux</td>
+<td>Mesa</td>
+<td>Guide</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">draw_index</td>
+<td style="text-align: left;"><code>2B</code></td>
+<td>ME</td>
+<td>PFP</td>
+<td style="text-align: left;">Linux</td>
+<td>Mesa</td>
+<td>Guide</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">draw_index_auto</td>
+<td style="text-align: left;"><code>2D</code></td>
+<td>ME</td>
+<td>PFP</td>
+<td style="text-align: left;">Linux</td>
+<td>Mesa</td>
+<td>Guide</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">draw_index_immd</td>
+<td style="text-align: left;"><code>2E</code></td>
+<td>ME</td>
+<td>PFP</td>
+<td style="text-align: left;">Linux</td>
+<td>Mesa</td>
+<td>Guide</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">num_instances</td>
+<td style="text-align: left;"><code>2F</code></td>
+<td>ME</td>
+<td>PFP</td>
+<td style="text-align: left;">Linux</td>
+<td>Mesa</td>
+<td>Guide</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">draw_index_multi_auto</td>
+<td style="text-align: left;"><code>30</code></td>
+<td>ME</td>
+<td>PFP</td>
+<td style="text-align: left;">Linux</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">indirect_buffer</td>
+<td style="text-align: left;"><code>32</code></td>
+<td>ME</td>
+<td>PFP</td>
+<td style="text-align: left;"><del>Linux</del></td>
+<td>Mesa</td>
+<td>Guide</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">strmout_buffer_update</td>
+<td style="text-align: left;"><code>34</code></td>
+<td>ME</td>
+<td>PFP</td>
+<td style="text-align: left;">Linux</td>
+<td>Mesa</td>
+<td>Guide</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">draw_index_offset_2</td>
+<td style="text-align: left;"><code>35</code></td>
+<td>ME</td>
+<td>PFP</td>
+<td style="text-align: left;">Linux</td>
+<td></td>
+<td>Guide</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">draw_index_multi_element</td>
+<td style="text-align: left;"><code>36</code></td>
+<td>ME</td>
+<td>PFP</td>
+<td style="text-align: left;">Linux</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">mem_semaphore</td>
+<td style="text-align: left;"><code>39</code></td>
+<td>ME</td>
+<td>PFP</td>
+<td style="text-align: left;"><del>Linux</del></td>
+<td>Mesa</td>
+<td>Guide</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">mpeg_index</td>
+<td style="text-align: left;"><code>3A</code></td>
+<td>ME</td>
+<td></td>
+<td style="text-align: left;"><del>Linux</del></td>
+<td>Mesa</td>
+<td>Guide</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">copy_dw</td>
+<td style="text-align: left;"><code>3B</code></td>
+<td>ME</td>
+<td></td>
+<td style="text-align: left;">Linux</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">wait_reg_mem</td>
+<td style="text-align: left;"><code>3C</code></td>
+<td>ME</td>
+<td>PFP</td>
+<td style="text-align: left;">Linux</td>
+<td>Mesa</td>
+<td>Guide</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">mem_write</td>
+<td style="text-align: left;"><code>3D</code></td>
+<td>ME</td>
+<td></td>
+<td style="text-align: left;">Linux</td>
+<td>Mesa</td>
+<td>Guide</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>3E</code></td>
+<td></td>
+<td>PFP</td>
+<td style="text-align: left;"></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>3F</code></td>
+<td>ME</td>
+<td>PFP</td>
+<td style="text-align: left;"></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">cp_dma</td>
+<td style="text-align: left;"><code>41</code></td>
+<td>ME</td>
+<td>PFP</td>
+<td style="text-align: left;">Linux</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pfp_sync_me</td>
+<td style="text-align: left;"><code>42</code></td>
+<td>ME</td>
+<td>PFP</td>
+<td style="text-align: left;">Linux</td>
+<td>Mesa</td>
+<td>Guide</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">surface_sync</td>
+<td style="text-align: left;"><code>43</code></td>
+<td>ME</td>
+<td>PFP</td>
+<td style="text-align: left;">Linux</td>
+<td>Mesa</td>
+<td>Guide</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">me_initialize</td>
+<td style="text-align: left;"><code>44</code></td>
+<td>ME</td>
+<td>PFP</td>
+<td style="text-align: left;"><del>Linux</del></td>
+<td>Mesa</td>
+<td>Guide</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">cond_write</td>
+<td style="text-align: left;"><code>45</code></td>
+<td>ME</td>
+<td></td>
+<td style="text-align: left;"><del>Linux</del></td>
+<td>Mesa</td>
+<td>Guide</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">event_write</td>
+<td style="text-align: left;"><code>46</code></td>
+<td>ME</td>
+<td></td>
+<td style="text-align: left;">Linux</td>
+<td>Mesa</td>
+<td>Guide</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">event_write_eop</td>
+<td style="text-align: left;"><code>47</code></td>
+<td>ME</td>
+<td></td>
+<td style="text-align: left;">Linux</td>
+<td>Mesa</td>
+<td>Guide</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">event_write_eos</td>
+<td style="text-align: left;"><code>48</code></td>
+<td>ME</td>
+<td></td>
+<td style="text-align: left;">Linux</td>
+<td></td>
+<td>Guide</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">preamble_cntl</td>
+<td style="text-align: left;"><code>4A</code></td>
+<td>ME</td>
+<td>PFP</td>
+<td style="text-align: left;"><del>Linux</del></td>
+<td></td>
+<td>Guide</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">rb_offset</td>
+<td style="text-align: left;"><code>4B</code></td>
+<td>ME</td>
+<td></td>
+<td style="text-align: left;"><del>Linux</del></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">alu_ps_const_buffer_copy</td>
+<td style="text-align: left;"><code>4C</code></td>
+<td>ME</td>
+<td></td>
+<td style="text-align: left;"><del>Linux</del></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">alu_vs_const_buffer_copy</td>
+<td style="text-align: left;"><code>4D</code></td>
+<td>ME</td>
+<td></td>
+<td style="text-align: left;"><del>Linux</del></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">alu_ps_const_update</td>
+<td style="text-align: left;"><code>4E</code></td>
+<td>ME</td>
+<td></td>
+<td style="text-align: left;"><del>Linux</del></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">alu_vs_const_update</td>
+<td style="text-align: left;"><code>4F</code></td>
+<td>ME</td>
+<td></td>
+<td style="text-align: left;"><del>Linux</del></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>51</code></td>
+<td>ME</td>
+<td></td>
+<td style="text-align: left;"></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>52</code></td>
+<td>ME</td>
+<td></td>
+<td style="text-align: left;"></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>53</code></td>
+<td>ME</td>
+<td></td>
+<td style="text-align: left;"></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>54</code></td>
+<td>ME</td>
+<td></td>
+<td style="text-align: left;"></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>55</code></td>
+<td></td>
+<td>PFP</td>
+<td style="text-align: left;"></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>56</code></td>
+<td></td>
+<td>PFP</td>
+<td style="text-align: left;"></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">one_reg_write</td>
+<td style="text-align: left;"><code>57</code></td>
+<td>ME</td>
+<td></td>
+<td style="text-align: left;"><del>Linux</del></td>
+<td>Mesa</td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">load_config_reg</td>
+<td style="text-align: left;"><code>60</code></td>
+<td>ME</td>
+<td>PFP</td>
+<td style="text-align: left;"></td>
+<td></td>
+<td>Guide</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">load_context_reg</td>
+<td style="text-align: left;"><code>61</code></td>
+<td>ME</td>
+<td>PFP</td>
+<td style="text-align: left;"></td>
+<td></td>
+<td>Guide</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">load_alu_const</td>
+<td style="text-align: left;"><code>62</code></td>
+<td>ME</td>
+<td>PFP</td>
+<td style="text-align: left;"></td>
+<td></td>
+<td>Guide</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">load_bool_const</td>
+<td style="text-align: left;"><code>63</code></td>
+<td>ME</td>
+<td>PFP</td>
+<td style="text-align: left;"></td>
+<td></td>
+<td>Guide</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">load_loop_const</td>
+<td style="text-align: left;"><code>64</code></td>
+<td>ME</td>
+<td>PFP</td>
+<td style="text-align: left;"></td>
+<td></td>
+<td>Guide</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">load_resource</td>
+<td style="text-align: left;"><code>65</code></td>
+<td>ME</td>
+<td>PFP</td>
+<td style="text-align: left;"></td>
+<td></td>
+<td>Guide</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">load_sampler</td>
+<td style="text-align: left;"><code>66</code></td>
+<td>ME</td>
+<td>PFP</td>
+<td style="text-align: left;"></td>
+<td></td>
+<td>Guide</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">load_ctl_const</td>
+<td style="text-align: left;"><code>67</code></td>
+<td>ME</td>
+<td>PFP</td>
+<td style="text-align: left;"></td>
+<td></td>
+<td>Guide</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">set_config_reg</td>
+<td style="text-align: left;"><code>68</code></td>
+<td>ME</td>
+<td>PFP</td>
+<td style="text-align: left;">Linux</td>
+<td>Mesa</td>
+<td>Guide</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">set_context_reg</td>
+<td style="text-align: left;"><code>69</code></td>
+<td>ME</td>
+<td>PFP</td>
+<td style="text-align: left;">Linux</td>
+<td>Mesa</td>
+<td>Guide</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">set_alu_const</td>
+<td style="text-align: left;"><code>6A</code></td>
+<td>ME</td>
+<td>PFP</td>
+<td style="text-align: left;">Linux</td>
+<td>Mesa</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">set_bool_const</td>
+<td style="text-align: left;"><code>6B</code></td>
+<td>ME</td>
+<td>PFP</td>
+<td style="text-align: left;">Linux</td>
+<td>Mesa</td>
+<td>Guide</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">set_loop_const</td>
+<td style="text-align: left;"><code>6C</code></td>
+<td>ME</td>
+<td>PFP</td>
+<td style="text-align: left;">Linux</td>
+<td>Mesa</td>
+<td>Guide</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">set_resource</td>
+<td style="text-align: left;"><code>6D</code></td>
+<td>ME</td>
+<td>PFP</td>
+<td style="text-align: left;">Linux</td>
+<td>Mesa</td>
+<td>Guide</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">set_sampler</td>
+<td style="text-align: left;"><code>6E</code></td>
+<td>ME</td>
+<td>PFP</td>
+<td style="text-align: left;">Linux</td>
+<td>Mesa</td>
+<td>Guide</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">set_ctl_const</td>
+<td style="text-align: left;"><code>6F</code></td>
+<td>ME</td>
+<td>PFP</td>
+<td style="text-align: left;">Linux</td>
+<td>Mesa</td>
+<td>Guide</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">set_resource_offset</td>
+<td style="text-align: left;"><code>70</code></td>
+<td>ME</td>
+<td>PFP</td>
+<td style="text-align: left;">Linux</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">set_alu_const_vs</td>
+<td style="text-align: left;"><code>71</code></td>
+<td>ME</td>
+<td>PFP</td>
+<td style="text-align: left;">Linux</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">set_alu_const_di</td>
+<td style="text-align: left;"><code>72</code></td>
+<td>ME</td>
+<td>PFP</td>
+<td style="text-align: left;">Linux</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">set_context_reg_indirect</td>
+<td style="text-align: left;"><code>73</code></td>
+<td>ME</td>
+<td>PFP</td>
+<td style="text-align: left;">Linux</td>
+<td>Mesa</td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">set_resource_indirect</td>
+<td style="text-align: left;"><code>74</code></td>
+<td>ME</td>
+<td>PFP</td>
+<td style="text-align: left;">Linux</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">set_append_cnt</td>
+<td style="text-align: left;"><code>75</code></td>
+<td>ME</td>
+<td>PFP</td>
+<td style="text-align: left;">Linux</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>7A</code></td>
+<td>ME</td>
+<td></td>
+<td style="text-align: left;"></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>7B</code></td>
+<td></td>
+<td>PFP</td>
+<td style="text-align: left;"></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>7C</code></td>
+<td>ME</td>
+<td></td>
+<td style="text-align: left;"></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>7D</code></td>
+<td>ME</td>
+<td></td>
+<td style="text-align: left;"></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="versions">Versions</h2>
+<p>The PFP and ME columns are based on the firmware blobs <code>PALM_me.bin</code> and <code>PALM_pfp.bin</code> in <em>linux-firmware</em> commit <code>9c71af939b51ce1431087acfb5b0f61c0b491c63</code>.</p>
+<p>The Linux column is based on version <code>4.8.6</code>.</p>
+<p>The Mesa column is based on commit <code>3f5fba8a7be61bfc0f46a5ea058108f6e0e1c268</code>.</p>
+<p>The Programming Guide states to be Revision 1.0 of May 24, 2011. Its sha1 is <code>a2cb6a64f12029a544b05589ad583a48a6e4b2d5</code>.</p>
+</body>
+</html>
