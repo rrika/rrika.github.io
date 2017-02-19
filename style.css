@@ -12,4 +12,5 @@ ul { padding-left: 1.5em; }
 #TOC a:hover { text-decoration: underline; }
 #TOC a:visited { color: #636; }
 table { border-collapse: collapse; }
-
+div.sourceCode { padding: 2em; background-color: #ffe9cf; margin: 1em; }
+table { margin: 1em; }
