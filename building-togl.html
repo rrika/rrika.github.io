@@ -52,10 +52,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <header>
 <h1 class="title">Building ToGL</h1>
 </header>
-<p>I was interested in using the DirectX 9 shader bytecode to GLSL converter in <a href="https://github.com/ValveSoftware/ToGL/">ToGL</a> because <a href="https://github.com/James-Jones/HLSLCrossCompiler">HLSLcc</a> fails on (old) Source Engine shaders.</p>
-<p>The project doesn’t come with any clear build instructions so I’ll write down what I did. This is more a log than a recommendation.</p>
+<p>I was interested in using <a href="https://github.com/ValveSoftware/ToGL/">ToGL</a>’s DirectX 9 shader bytecode to GLSL converter because <a href="https://github.com/James-Jones/HLSLCrossCompiler">HLSLcc</a> fails on shader model 1 shaders (such as those used in the Source Engine shaders in some places).</p>
+<p>The project doesn’t come with any clear build instructions so here are the notes from my attempt to build it.</p>
+<p><em>Update</em>: It seems Mesa has an even more complete translator for these shaders (<a href="https://cgit.freedesktop.org/mesa/mesa/tree/src/gallium/state_trackers/nine/nine_shader.c">on cgit.freedesktop.org</a>; <a href="https://github.com/mesa3d/mesa/blob/master/src/gallium/state_trackers/nine/nine_shader.c">on github.org</a>)</p>
 <h2 id="source-sdk">Source SDK</h2>
-<p>ToGL seems to be intended to be patched into the source tree of the <a href="https://github.com/ValveSoftware/source-sdk-2013">Source SDK 2013</a>. But for a few reasons I preferred doing it the other way round: Symlinking the necessary directories (<code>devtools</code>, <code>lib</code>, <code>materialsystem</code>, <code>public</code>¹, <code>thirdparty</code>, <code>vpc_scripts</code>) from <code>$SDKROOT/mp/src</code> into the ToGL tree.</p>
+<p>ToGL seems to be intended to be patched into the source tree of the <a href="https://github.com/ValveSoftware/source-sdk-2013">Source SDK 2013</a>. But for a few reasons I preferred doing it the other way round: Symlinking the necessary directories (<code>devtools</code>, <code>lib</code>, <code>materialsystem</code>, <code>public</code>*, <code>thirdparty</code>, <code>vpc_scripts</code>) from <code>$SDKROOT/mp/src</code> into the ToGL tree.</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="va">SDKROOT=</span>…
 <span class="kw">for</span> <span class="ex">i</span> in devtools lib materialsystem thirdparty vpc_scripts<span class="kw">;</span> <span class="kw">do</span>
   <span class="fu">ln</span> -s <span class="va">$SDKROOT</span>/mp/src/<span class="va">$i</span> <span class="va">$i</span>
@@ -68,7 +69,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="fu">rm</span> -rf public_git</code></pre></div>
 <h2 id="steam-runtime">Steam Runtime</h2>
 <p>For simplicity I installed my <a href="https://github.com/ValveSoftware/steam-runtime">steam-runtime</a> into <code>/valve/steam-runtime/</code>. The GitHub repo doesn’t make it quite clear that you don’t have to build it yourself.</p>
-<p>On the <a href="https://developer.valvesoftware.com/wiki/Source_SDK_2013#Step_Three:_Downloading.2C_installing.2C_setting_up_the_Steam_Client_Runtime">VDC Wiki page about the runtime</a> you can find the link <code>http://media.steampowered.com/client/runtime/steam-runtime-sdk_latest.tar.xz</code>.</p>
+<p>On the <a href="https://developer.valvesoftware.com/wiki/Source_SDK_2013#Step_Three:_Downloading.2C_installing.2C_setting_up_the_Steam_Client_Runtime">VDC Wiki page about the runtime</a> you can find the link <code>http://media.steampowered.com/client/runtime/steam-runtime-sdk_latest.tar.xz</code>. Yes, it's <code>http</code> and yes, that's terrible.</p>
 <h2 id="vpc">vpc</h2>
 <p>The project file generator <code>vpc</code> (in <code>$SDKROOT/mp/src/devtools/bin/vpc_linux</code>) walks up the folder hierarchy searching for a <code>vpc_scripts</code> folder in which it looks for a <code>default.vgc</code>. Thus I provide <code>togl/vpc_scripts/default.vgc</code>:</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="va">$Conditional</span> <span class="st">&quot;SOURCESDK&quot;</span> <span class="st">&quot;1&quot;</span>
