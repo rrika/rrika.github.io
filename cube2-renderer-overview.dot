@@ -1,0 +1,191 @@
+digraph {
+	dpi = 58;
+	newrank = true;
+
+
+	valist [shape="rectangle" style="rounded"]
+	//varoot [shape="rectangle"]
+	//tjoints [shape="rectangle"]
+
+	lightmaps [shape="rectangle" style="rounded"]
+	lightmaptexs [shape="rectangle" style="rounded"]
+
+	//worldroot [shape="rectangle"]
+
+	subgraph cluster_lightmap {
+		label="lightmap.cpp"
+		subgraph cluster_normal {
+			label="normal.cpp"
+			normalgroups [shape="rectangle" style="rounded"]
+			calcnormals [shape="record" label="{calcnormals|addnormal}"]
+			findnormal [shape="rectangle"]
+		}
+		calclight [shape="rectangle"]
+		subgraph {
+			rank = "same";
+			setupsurfaces [shape="rectangle"]
+			setupsurface [shape="rectangle"]
+		}
+		findlights [shape="rectangle"]
+		alloclightmap [shape="rectangle"]
+		packlightmaps [shape="record" label="{packlightmaps|packlightmap|insertlightmap}"]
+		//packlightmaps [shape="rectangle"]
+		//packlightmap [shape="rectangle"]
+		//insertlightmap [shape="rectangle"]
+		genlightmaptexs [shape="rectangle"]
+		clearlights [shape="rectangle"]
+		initlights [shape="rectangle"]
+		generatelightmap [shape="rectangle"]
+		generatelumel [shape="rectangle"]
+		generatelightmap -> generatelumel
+		setupsurfaces -> findnormal
+		setupsurfaces -> findlights
+		setupsurfaces -> setupsurface //[constraint="false"]
+		setupsurface -> generatelightmap
+		setupsurface -> alloclightmap
+		alloclightmap -> packlightmaps // [constraint="false"]
+		//packlightmaps -> packlightmap
+		//packlightmap -> insertlightmap
+		clearlights -> genlightmaptexs
+		initlights -> genlightmaptexs
+	}
+	calclight -> calcnormals
+	findnormal -> normalgroups [dir="back"]
+	calcnormals -> normalgroups
+	//insertlightmap -> lightmaps
+	packlightmaps -> lightmaps
+	genlightmaptexs -> lightmaps [dir="back"]
+	genlightmaptexs -> lightmaptexs
+	#findnormal -> normals [dir="back"]
+	subgraph cluster_octarender {
+		label="octarender.cpp";
+		subgraph {
+			rank="same";
+			findtjoints_v [shape="rectangle" label="findtjoints()"]
+			allchanged [shape="rectangle"]
+			octarender [shape="rectangle"]
+		}
+		updateva [shape="rectangle"]
+		setva [shape="rectangle"]
+		subgraph {
+			tjoints [shape="rectangle"  style="rounded"]
+			gencubeverts [shape="rectangle"]
+			addcubeverts [shape="rectangle"]
+			addtris [shape="rectangle"]
+		}
+		
+		subgraph /*cluster_vc*/ {
+			label = "vertex collection";
+			//newva [shape="shape"]
+			vacollect [shape="record" label="{<newva>newva|{<setupdata>setupdata|<optimize>optimize}}"]
+			//vc_optimize [shape="rectangle" label=<vacollect::optimize>]
+			//vc_setupdata [shape="rectangle" label=<vacollect::setupdata>]
+			va [shape="rectangle" style="rounded"]
+			vc [shape="rectangle" style="rounded"]
+		}
+		rendercube [shape="rectangle"]
+		vamerges [shape="rectangle" style="rounded"]
+		vbo [shape="rectangle" style="rounded" label="vbodata/vbovas"]
+		//vbos [shape="rectangle" style="rounded"]
+		genmergedfaces [shape="rectangle"]
+		addmergedverts [shape="rectangle"]
+
+		genvbo [shape="record" label="{flushvbo|genvbo}"]
+		addvbo [shape="rectangle"]
+		//genvbo -> vbos
+		//genvbo -> vbo
+		genvbo -> vbo [dir="both"]
+		addvbo -> vbo
+
+
+		subgraph cluster_findtjoints {
+			label="findtjoints";
+			gencubeedges_p [shape="rectangle" label="gencubeedges(*...)"]
+			gencubeedges_r [shape="rectangle" label="gencubeedges(&...)"]
+			findtjoints [shape="record" label="{findtjoints(...)|addtjoint}"]
+			//cubeedges [shape="rectangle"]
+			//edgegroups [shape="rectangle"]
+			cubeedges_edgegroups [shape="rectangle" label="cubeedges/edgegroups" style="rounded"]
+		}
+
+		//updateva [shape="rectangle"]
+
+
+		findtjoints_v -> gencubeedges_p;
+		findtjoints_v -> findtjoints
+		//findtjoints -> edgegroups [dir="back"]
+		//findtjoints -> cubeedges [dir="back"]
+		findtjoints -> cubeedges_edgegroups [dir="back"]
+		rendercube -> rendercube
+		rendercube -> gencubeverts
+		rendercube -> addmergedverts
+		rendercube -> genmergedfaces
+		gencubeedges_p -> gencubeedges_p
+		gencubeedges_p -> gencubeedges_r
+		//gencubeedges_r -> edgegroups
+		//gencubeedges_r -> cubeedges
+		gencubeedges_r -> cubeedges_edgegroups
+		gencubeverts -> addcubeverts
+		genmergedfaces -> vamerges
+		addmergedverts -> vamerges [dir="back"]
+		rendercube -> vamerges [dir="back"]
+		addmergedverts -> addcubeverts
+		addcubeverts -> addtris //[constraint="false"]
+		octarender -> allchanged [dir="back"]
+		// updateva -> octarender [dir="back"]
+		// allchanged -> octarender
+		octarender -> updateva
+		allchanged -> findtjoints_v
+		allchanged -> rendercube [style="invis"]
+		addtris -> vc [constraint="false"]
+		//setva -> rendercube [constraint="false"]
+		updateva -> updateva
+		rendercube -> setva [dir="back"]
+		updateva -> setva //[constraint="false"]
+		//setva -> newva
+		setva -> vacollect
+		//setva -> vamerges [constraint="false" dir="both"]
+		//newva -> vamerges [constraint="false" dir="both"]
+		//newva -> va [constraint="false"]
+		//newva -> vc_optimize
+		//newva -> vc_setupdata
+		addvbo -> va [dir="back"]
+		/*vc_*/vacollect:optimize:s -> vc:n [dir="both"]
+		/*vc_*/vacollect:setupdata -> vc [dir="back"]
+		/*vc_*/vacollect:setupdata -> va
+		/*vc_*/vacollect:setupdata -> addvbo
+		/*vc_*/vacollect:setupdata -> genvbo
+		//octarender -> genvbo [weight=0]
+	}
+	subgraph cluster_physics {
+		label="physics.cpp";
+		shadowray [shape="rectangle"]
+	}
+	subgraph cluster_renderva {
+		label="renderva.cpp";
+		visiblecubes [shape="rectangle"]
+		rendergeom [shape="rectangle"]
+		renderva [shape="rectangle"]
+		visibleva [shape="rectangle" style="rounded"]
+		rendergeom -> renderva
+	}
+	//findtjoints_v -> worldroot [dir="back"]
+	rendergeom -> visibleva [dir="back"]
+	vacollect:newva -> valist [minlen=2]
+	//updateva -> varoot
+	visiblecubes -> valist [dir="back"]
+	visiblecubes -> visibleva
+	findtjoints -> tjoints
+
+	//tjoints -> addtjoint [dir="back"]
+	//addtris -> tjoints [dir="back"]
+	gencubeverts -> tjoints [dir="back"]
+	tjoints -> addtris
+
+	addcubeverts -> lightmaps [dir="back"]
+	addcubeverts -> lightmaptexs [dir="back"]
+
+	generatelumel -> shadowray
+	//{ rank="same"; valist -> vbo [style="invis"]}
+	generatelumel -> rendergeom [style="invis"]
+}
